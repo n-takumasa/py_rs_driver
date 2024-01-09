@@ -155,7 +155,7 @@ public:
 
     float getLidarTemperature()
     {
-        float temp;
+        float temp = NAN;
         lidar_driver.getTemperature(temp);
         return temp;
     }
