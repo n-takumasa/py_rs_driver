@@ -1,4 +1,13 @@
-# py_rs_driver
+# Forked from [nobu-e758/py_rs_driver](https://github.com/nobu-e758/py_rs_driver)
+
+```bash
+apt install build-essential
+apt install cmake
+apt install libpcap-dev libeigen3-dev libboost-dev libpcl-dev
+pip install git+https://github.com/n-takumasa/py_rs_driver.git
+```
+
+# [ORIGINAL DOC] py_rs_driver
 
 **Unofficial** python wrapper for [RoboSense rs_driver](https://github.com/RoboSense-LiDAR/rs_driver).
 
