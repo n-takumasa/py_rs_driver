@@ -1,4 +1,3 @@
-
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
 project(rs_driver_wrapper
@@ -7,23 +6,17 @@ project(rs_driver_wrapper
     LANGUAGES CXX
 )
 
-if (NOT EXISTS "./pybind11")
-    execute_process(
-        COMMAND "git" "clone" "--recursive" "https://github.com/pybind/pybind11.git"
-    )
-endif()
-
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # pybind11
-add_subdirectory(build/pybind11)
-pybind11_add_module(rs_driver_wrapper rs_driver_wrapper.cpp)
+add_subdirectory(external/pybind11)
+pybind11_add_module(rs_driver_wrapper src/rs_driver_wrapper.cpp)
 
 # RS Driver
-target_include_directories(rs_driver_wrapper
-  PUBLIC /usr/local/rs_driver/include
-)
+add_subdirectory(external/rs_driver)
 find_package(rs_driver REQUIRED)
+include_directories(${rs_driver_INCLUDE_DIRS})
+
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(Boost REQUIRED COMPONENTS date_time)
 find_package(Boost REQUIRED COMPONENTS regex)

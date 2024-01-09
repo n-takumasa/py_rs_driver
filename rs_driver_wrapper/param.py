@@ -1,5 +1,5 @@
-from enum import IntEnum
 from dataclasses import dataclass, field
+from enum import IntEnum
 
 
 class LidarType(IntEnum):  # < LiDAR type

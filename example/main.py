@@ -1,11 +1,11 @@
-import numpy as np
-import time
-import os
 import logging
+import os
+import time
 from typing import Sequence
 
-from py_rs_driver_param import *
-from rs_driver_wrapper import PyRSDriver
+import numpy as np
+
+from rs_driver_wrapper import InputType, LidarType, PyRSDriver, RSDriverParam
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     param.lidar_type = LidarType.RSM1
     param.input_type = InputType.PCAP_FILE
     param.input_param.pcap_path = os.path.abspath(
-        "./_input/lidar.pcap"
+        "../../lidar.pcap"
     )
     param.decoder_param.use_lidar_clock = True
     param.decoder_param.dense_points = True
