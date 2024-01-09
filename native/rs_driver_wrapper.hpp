@@ -42,6 +42,7 @@ void pointCloudPutCallback(std::shared_ptr<PointCloudMsg> msg)
 
     if (pyPointCloudCallback)
     {
+        py::gil_scoped_acquire acquire;
         pyPointCloudCallback(
             msg->seq,
             msg->height,
@@ -56,8 +57,10 @@ void pointCloudPutCallback(std::shared_ptr<PointCloudMsg> msg)
 ExceptionCallback pyExceptionCallback;
 void exceptionCallback(const Error &code)
 {
-    if (pyExceptionCallback)
+    if (pyExceptionCallback) {
+        py::gil_scoped_acquire acquire;
         pyExceptionCallback(int(code.error_code_type), code.toString());
+    }
     if (native_msg)
         RS_WARNING << code.toString() << RS_REND;
 }
