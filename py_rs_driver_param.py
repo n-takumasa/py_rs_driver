@@ -1,8 +1,7 @@
 from enum import IntEnum
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
-@dataclass
 class LidarType(IntEnum):  # < LiDAR type
     # mechanical
     RS16 = 0x01
@@ -28,14 +27,12 @@ class LidarType(IntEnum):  # < LiDAR type
     RSM1_JUMBO = RS_JUMBO + RSM1
 
 
-@dataclass
 class InputType(IntEnum):
     ONLINE_LIDAR = 1
     PCAP_FILE = 2
     RAW_PACKET = 3
 
 
-@dataclass
 class SplitFrameMode(IntEnum):
     SPLIT_BY_ANGLE = 1
     SPLIT_BY_FIXED_BLKS = 2
@@ -70,7 +67,7 @@ class RSDecoderParam:  # < LiDAR decoder parameter
     use_lidar_clock: bool = False  # < true: use LiDAR clock as timestamp; false: use system clock as timestamp
     dense_points: bool = False  # < true: discard NAN points; false: reserve NAN points
     ts_first_point: bool = False  # < true: time-stamp point cloud with the first point; false: with the last point;
-    transform_param: RSTransformParam = RSTransformParam()  # < Used to transform points
+    transform_param: RSTransformParam = field(default_factory=RSTransformParam)  # < Used to transform points
 
 
 @dataclass
@@ -92,5 +89,5 @@ class RSInputParam:  # < The LiDAR input parameter
 class RSDriverParam:  # < The LiDAR driver parameter
     lidar_type: LidarType = LidarType.RSM1  # < Lidar type
     input_type: InputType = InputType.PCAP_FILE  # < Input type
-    input_param: RSInputParam = RSInputParam()  # < Input parameter
-    decoder_param: RSDecoderParam = RSDecoderParam()  # < Decoder parameter
+    input_param: RSInputParam = field(default_factory=RSInputParam)  # < Input parameter
+    decoder_param: RSDecoderParam = field(default_factory=RSDecoderParam)  # < Decoder parameter
