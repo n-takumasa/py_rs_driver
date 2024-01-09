@@ -8,7 +8,7 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "rs_driver_wrapper"
+name = "py_rs_driver"
 version = "0.1.0"
 authors = [
   {name = "Takumasa Nakamura", email = "n.takumasa@gmail.com" }

@@ -128,6 +128,6 @@ class CMakeBuild(build_ext):
 # logic and declaration, and simpler if you include description/version in a file.
 setup(
     packages=find_packages(),
-    ext_modules=[CMakeExtension("rs_driver_wrapper.rs_driver_wrapper")],
+    ext_modules=[CMakeExtension("py_rs_driver.rs_driver_wrapper")],
     cmdclass={"build_ext": CMakeBuild},
 )

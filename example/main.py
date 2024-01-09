@@ -5,7 +5,7 @@ from collections.abc import Sequence
 
 import numpy as np
 
-from rs_driver_wrapper import InputType, LidarType, PyRSDriver, RSDriverParam
+from py_rs_driver import InputType, LidarType, PyRSDriver, RSDriverParam
 
 logger = logging.getLogger(__name__)
 
