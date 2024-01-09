@@ -1,7 +1,7 @@
 import logging
 import os
 import time
-from typing import Sequence
+from collections.abc import Sequence
 
 import numpy as np
 
@@ -11,7 +11,11 @@ logger = logging.getLogger(__name__)
 
 
 def pointcloud_callback(
-    seq: int, height: int, width: int, timestamp: float, pcd_data: Sequence[Sequence[float]]
+    seq: int,
+    height: int,
+    width: int,
+    timestamp: float,
+    pcd_data: Sequence[Sequence[float]],
 ):
     """Pointcloud callback
 
@@ -25,7 +29,9 @@ def pointcloud_callback(
             [[x0,y0,z0,i0], [x1,y1,z1,i1], ...]
     """
     np_pcd_data = np.array(pcd_data)
-    logger.info(f"Pcd data\t{seq}\t{timestamp}\t{np_pcd_data.shape}\t{np_pcd_data.dtype}")
+    logger.info(
+        f"Pcd data\t{seq}\t{timestamp}\t{np_pcd_data.shape}\t{np_pcd_data.dtype}"
+    )
 
 
 def exception_callback(error_type: int, error_str: str):
@@ -41,22 +47,19 @@ def exception_callback(error_type: int, error_str: str):
     if error_type == 0:
         logger.info(error_str)
     elif error_type == 1:
-        logger.warn(error_str)
+        logger.warning(error_str)
     else:
         logger.error(error_str)
 
 
 if __name__ == "__main__":
-
     logging.basicConfig(level=logging.INFO)
 
     # Configure RSDRiverParam
     param = RSDriverParam()
     param.lidar_type = LidarType.RSM1
     param.input_type = InputType.PCAP_FILE
-    param.input_param.pcap_path = os.path.abspath(
-        "../../lidar.pcap"
-    )
+    param.input_param.pcap_path = os.path.abspath("../../lidar.pcap")
     param.decoder_param.use_lidar_clock = True
     param.decoder_param.dense_points = True
 

@@ -7,6 +7,7 @@ from pathlib import Path
 from setuptools import Extension, find_packages, setup
 from setuptools.command.build_ext import build_ext
 
+# REF: https://github.com/pybind/cmake_example/blob/master/setup.py
 # Convert distutils Windows platform specifiers to CMake -A arguments
 PLAT_TO_CMAKE = {
     "win32": "Win32",
@@ -129,7 +130,4 @@ setup(
     packages=find_packages(),
     ext_modules=[CMakeExtension("rs_driver_wrapper.rs_driver_wrapper")],
     cmdclass={"build_ext": CMakeBuild},
-    zip_safe=False,
-    # extras_require={"test": ["pytest>=6.0"]},
-    # python_requires=">=3.7",
 )

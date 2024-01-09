@@ -1,4 +1,3 @@
-# ruff: noqa: F401
 from typing import Callable, Sequence
 
 from .param import RSDriverParam
