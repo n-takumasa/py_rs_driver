@@ -4,21 +4,22 @@ from enum import IntEnum
 
 class LidarType(IntEnum):  # < LiDAR type
     # mechanical
-    RS16 = 0x01
+    RS_MECH = 0x01
+    RS16 = RS_MECH
     RS32 = 0x02
     RSBP = 0x03
-    RS128 = 0x04
-    RS80 = 0x05
-    RS48 = 0x06
-    RSP128 = 0x07
-    RSP80 = 0x08
-    RSP48 = 0x09
-    RSHELIOS = 0x0A
-    RSHELIOS_16P = 0x0B
-    RSROCK = 0x0C
+    RSHELIOS = 0x04
+    RSHELIOS_16P = 0x05
+    RS128 = 0x06
+    RS80 = 0x07
+    RS48 = 0x08
+    RSP128 = 0x09
+    RSP80 = 0x0A
+    RSP48 = 0x0B
 
     # mems
-    RSM1 = 0x20
+    RS_MEMS = 0x20
+    RSM1 = RS_MEMS
     RSM2 = 0x21
     RSEOS = 0x22
 
@@ -53,7 +54,9 @@ class RSTransformParam:  # < The Point transform parameter
 class RSDecoderParam:  # < LiDAR decoder parameter
     config_from_file: bool = False  # < Internal use only for debugging
     angle_path: str = ""  # < Internal use only for debugging
-    wait_for_difop: bool = True  # < true: start sending point cloud until receive difop packet
+    wait_for_difop: bool = (
+        True  # < true: start sending point cloud until receive difop packet
+    )
     min_distance: float = 0.2  # < Minimum distance of point cloud range
     max_distance: float = 200.0  # < Max distance of point cloud range
     start_angle: float = 0.0  # < Start angle of point cloud
@@ -63,11 +66,15 @@ class RSDecoderParam:  # < LiDAR decoder parameter
     # < 2: Split frames by fixed number of blocks;
     # < 3: Split frames by custom number of blocks (num_blks_split)
     split_angle: float = 0.0  # < Split angle(degree) used to split frame, only be used when split_frame_mode=1
-    num_blks_split: int = 1  # < Number of packets in one frame, only be used when split_frame_mode=3
+    num_blks_split: int = (
+        1  # < Number of packets in one frame, only be used when split_frame_mode=3
+    )
     use_lidar_clock: bool = False  # < true: use LiDAR clock as timestamp; false: use system clock as timestamp
     dense_points: bool = False  # < true: discard NAN points; false: reserve NAN points
     ts_first_point: bool = False  # < true: time-stamp point cloud with the first point; false: with the last point;
-    transform_param: RSTransformParam = field(default_factory=RSTransformParam)  # < Used to transform points
+    transform_param: RSTransformParam = field(
+        default_factory=RSTransformParam
+    )  # < Used to transform points
 
 
 @dataclass
@@ -81,8 +88,12 @@ class RSInputParam:  # < The LiDAR input parameter
     # < true: The pcap bag will repeat play
     pcap_rate: float = 1.0  # < Rate to read the pcap file
     use_vlan: bool = False  # < Vlan on-off
-    user_layer_bytes: int = 0  # < Bytes of user layer. thers is no user layer if it is 0
-    tail_layer_bytes: int = 0  # < Bytes of tail layer. thers is no tail layer if it is 0
+    user_layer_bytes: int = (
+        0  # < Bytes of user layer. thers is no user layer if it is 0
+    )
+    tail_layer_bytes: int = (
+        0  # < Bytes of tail layer. thers is no tail layer if it is 0
+    )
 
 
 @dataclass
@@ -90,4 +101,6 @@ class RSDriverParam:  # < The LiDAR driver parameter
     lidar_type: LidarType = LidarType.RSM1  # < Lidar type
     input_type: InputType = InputType.PCAP_FILE  # < Input type
     input_param: RSInputParam = field(default_factory=RSInputParam)  # < Input parameter
-    decoder_param: RSDecoderParam = field(default_factory=RSDecoderParam)  # < Decoder parameter
+    decoder_param: RSDecoderParam = field(
+        default_factory=RSDecoderParam
+    )  # < Decoder parameter
